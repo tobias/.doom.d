@@ -2,6 +2,7 @@
 ;; buffers. Must be set before loading cider.
 (setq cider-special-mode-truncate-lines nil)
 
+(setq shortcut-elisp-loaded nil)
 (when (file-exists-p "~/.doom.d/shortcut-shared.el")
   (load! "shortcut-shared.el"))
 
