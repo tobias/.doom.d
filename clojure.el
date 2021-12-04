@@ -83,9 +83,6 @@
   (insert "(sc.api/letsc )")
   (backward-char))
 
-(define-key clojure-mode-map (kbd "C-c s") 'tc/insert-spy)
-(define-key cider-repl-mode-map (kbd "C-c s") 'tc/insert-spy-letsc)
-
 (defun tc/insert-divider-comment ()
   (interactive)
   (move-beginning-of-line nil)
