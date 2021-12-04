@@ -70,3 +70,5 @@
 
 ;; highlight symbol at point
 (package! idle-highlight-mode)
+
+(package! restclient)
