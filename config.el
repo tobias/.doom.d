@@ -24,7 +24,14 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; doom-nord
+;; doom-palenight
+(setq doom-theme 'doom-palenight
+      doom-font  (font-spec :family "Source Code Pro Medium" :size 13)
+      doom-big-font (font-spec :family "Source Code Pro Medium" :size 18))
+
+;; Doom increases/decreases the font size by 2 by default, which is too much.
+(setq doom-font-increment 1)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -63,11 +70,14 @@
   (("C-x y" . find-file-in-project)
    ("M-g s" . ag-project)))
 
+(use-package! uniquify
+  :init (setq uniquify-buffer-name-style 'forward))
+
 (use-package! zoom
   :config (zoom-mode))
 
 (use-package! swiper
-    :bind
+  :bind
   (("C-s" . swiper)
    :map swiper-map
    ("C-." .
@@ -75,20 +85,56 @@
    ("M-." .
     (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'word))))))))
 
+;; general configuration
+
+;; never insert a tab. First indent, then complete
+(setq tab-always-indent 'complete)
+
+;; kill entire line (including \n)
+(setq kill-whole-line t)
+
+;; Never background/iconify
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
+
+;; advise zap-to-char to delete *up to* char
+(defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
+    "Kill up to the ARG'th occurence of CHAR, and leave CHAR. If
+  you are deleting forward, the CHAR is replaced and the point is
+  put before CHAR"
+    (insert char)
+    (if (< 0 arg) (forward-char -1)))
+
+;; Pin buffers to windows
+(defun tc/toggle-current-window-dedication ()
+ (interactive)
+ (let* ((window    (selected-window))
+        (dedicated (window-dedicated-p window)))
+   (set-window-dedicated-p window (not dedicated))
+   (message "Window %sdedicated to %s"
+            (if dedicated "no longer " "")
+            (buffer-name))))
+
+(global-set-key (kbd "C-x p") 'tc/toggle-current-window-dedication)
+
+;; highlight the symbol at point
+(use-package! idle-highlight-mode
+  :init (global-idle-highlight-mode 1))
+
+(use-package! doom-modeline
+  :init
+  ;; By default, doom-modeline uses 'auto mode, which uses project-relative file
+  ;; path. I prefer the buffer name, since I have the path in the header line
+  (setq doom-modeline-buffer-file-name-style 'buffer-name))
+
+(use-package! restclient)
+
+(add-load-path! "lib")
+
 (load! "functions.el")
-
-;; clojure
-
-(defun tc/rename-buffer-to-ns ()
-  (interactive)
-  (let ((ns (clojure-expected-ns)))
-    (when (not (string= "" ns))
-      (rename-buffer ns))))
-
-(add-hook! clojure-mode 'tc/turn-on-paredit)
-(add-hook! clojure-mode 'tc/rename-buffer-to-ns)
-(add-hook! clojure-mode 'subword-mode)
-
-;; elisp
-
-(add-hook! elisp-mode 'tc/turn-on-paredit)
+(load! "clojure.el")
+(load! "elisp.el")
+(load! "flycheck.el")
+(load! "header.el")
+(load! "magit.el")
+(load! "org.el")

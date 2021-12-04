@@ -49,11 +49,24 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! ag)
+
+(package! cider :pin "v1.1.1")
+
 ;; auto-balances windows, giving more space to the active window
 (package! zoom)
 
 ;; my preferred mechanism for looking up files
 (package! find-file-in-project)
 
+;; generate links from code to GH
+(package! git-link)
+
+;; nice tool for browsing json as a tree
+(package! json-navigator)
+
 ;; swiper for in-buffer search
 (package! swiper)
+
+;; highlight symbol at point
+(package! idle-highlight-mode)
