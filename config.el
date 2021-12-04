@@ -127,7 +127,8 @@
   ;; path. I prefer the buffer name, since I have the path in the header line
   (setq doom-modeline-buffer-file-name-style 'buffer-name))
 
-(use-package! restclient)
+(package! restclient
+  :recipe (:host github :repo "pashky/restclient.el"))
 
 (add-load-path! "lib")
 
