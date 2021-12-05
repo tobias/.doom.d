@@ -22,27 +22,12 @@
   (add-hook! clojure-mode 'tc/turn-on-paredit)
   (add-hook! clojure-mode 'tc/rename-buffer-to-ns)
   (add-hook! clojure-mode 'subword-mode)
-  (add-hook! cider-repl-mode 'tc/turn-on-paredit)
   (lambda ()
     (load! "cljstyle-mode.el")
     (when shortcut-elisp-loaded
       (add-hook! clojure-mode-hook 'shortcut-backend-font-lock)))
-  (setq
-   clojure-indent-style               :always-align
-   cider-font-lock-dynamically        nil
-   cider-auto-select-error-buffer     t
-   ;; try symbol at point before asking
-   cider-prompt-for-symbol            nil
-   cider-eval-spinner-type            'vertical-breathing
+  (setq clojure-indent-style :always-align)
 
-   cider-repl-print-length            100
-   cider-repl-wrap-history            t
-   cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
-   cider-repl-pop-to-buffer-on-connect 'display-only
-   cider-repl-use-content-types       nil
-   cider-repl-display-help-banner     nil
-   cider-repl-prompt-function         (lambda (namespace)
-                                        (format "%s>\n" namespace)))
   :bind
   (:map clojure-mode-map
    ;; unset toggling keyword to string and vice-versa since it conflicts with my
@@ -61,6 +46,27 @@
    ("C-c C-n n" . 'tc/insert-then)
    ("C-c C-n a" . 'tc/insert-and)
    ("M-c" . 'tc/insert-spy))
+  )
+
+(use-package! cider
+  :init
+  (add-hook! cider-repl-mode 'tc/turn-on-paredit)
+  (setq
+   cider-font-lock-dynamically        nil
+   cider-auto-select-error-buffer     t
+   ;; try symbol at point before asking
+   cider-prompt-for-symbol            nil
+   cider-eval-spinner-type            'vertical-breathing
+   cider-repl-print-length            100
+   cider-repl-wrap-history            t
+   cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
+   cider-repl-pop-to-buffer-on-connect 'display-only
+   cider-repl-use-content-types       nil
+   cider-repl-display-help-banner     nil
+   cider-repl-prompt-function         (lambda (namespace)
+                                        (format "%s>\n" namespace)))
+
+  :bind
   (:map cider-repl-mode-map
    ("RET" . 'indent-new-comment-line)
    ("C-RET" . 'cider-repl-return)
