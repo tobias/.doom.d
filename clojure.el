@@ -23,7 +23,7 @@
   (add-hook! clojure-mode 'tc/rename-buffer-to-ns)
   (add-hook! clojure-mode 'subword-mode)
   (lambda ()
-    (load! "cljstyle-mode.el")
+    (load! "lib/cljstyle-mode.el")
     (when shortcut-elisp-loaded
       (add-hook! clojure-mode-hook 'shortcut-backend-font-lock)))
   (setq clojure-indent-style :always-align)
