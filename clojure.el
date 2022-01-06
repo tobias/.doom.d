@@ -83,6 +83,7 @@
 (defun tc/insert-spy ()
   (interactive)
   (move-beginning-of-line nil)
+  (cider-interactive-eval "(require 'sc.api)")
   (insert "(sc.api/spy)")
   (indent-for-tab-command))
 
