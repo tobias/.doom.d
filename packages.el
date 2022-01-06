@@ -51,8 +51,6 @@
 
 (package! ag)
 
-(package! cider :pin "8b3dabeefa8a3352d7a30a9fd9027c05a4c4f6e2")
-
 ;; auto-balances windows, giving more space to the active window
 (package! zoom)
 
