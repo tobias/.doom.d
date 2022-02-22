@@ -77,8 +77,9 @@
 (when shortcut-elisp-loaded
   ;; use my local cider alias and set up scope-capture
   (setq shortcut-backend-default-clojure-cli-options
-      "-J-server -J-Xmx8g -J-XX:+UseG1GC -J-Dapple.awt.UIElement=true -J-Dtika.config=tika-config.xml -M:backend-defaults:dev:test:cider")
+      "-J-server -J-Xmx8g -J-XX:+UseG1GC -J-Dapple.awt.UIElement=true -J-Dtika.config=tika-config.xml -A:backend-defaults:dev:test")
   (add-to-list 'cider-jack-in-nrepl-middlewares "sc.nrepl.middleware/wrap-letsc")
+  (add-to-list 'cider-jack-in-nrepl-middlewares "refactor-nrepl.middleware/wrap-refactor")
   (cider-add-to-alist 'cider-jack-in-dependencies "vvvvalvalval/scope-capture-nrepl" "0.3.1"))
 
 (defun tc/insert-spy ()
