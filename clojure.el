@@ -7,7 +7,8 @@
   (load! "shortcut-shared.el"))
 
 (when shortcut-elisp-loaded
-  (shortcut-backend-enable-matcher-combinator-test-output-colors))
+  (shortcut-backend-enable-matcher-combinator-test-output-colors)
+  (add-hook 'clojure-mode-hook 'shortcut-backend-font-lock))
 
 (defun tc/rename-buffer-to-ns ()
   (interactive)
