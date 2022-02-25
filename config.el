@@ -133,6 +133,7 @@
 (load! "clojure.el")
 (load! "elisp.el")
 (load! "flycheck.el")
+(load! "javascript.el")
 (load! "header.el")
 (load! "magit.el")
 (load! "org.el")
