@@ -1,3 +1,5 @@
+(setq git-commit-summary-max-length 72)
+
 (add-hook! git-commit-mode
   (lambda ()
     (when shortcut-elisp-loaded

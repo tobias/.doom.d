@@ -24,7 +24,7 @@
   (add-hook! clojure-mode 'tc/rename-buffer-to-ns)
   (add-hook! clojure-mode 'subword-mode)
   (lambda ()
-    (load! "lib/cljstyle-mode.el")
+    (load! "lib/cljstyle-mode")
     (when shortcut-elisp-loaded
       (add-hook! clojure-mode-hook 'shortcut-backend-font-lock)))
   (setq clojure-indent-style :always-align)
@@ -46,8 +46,7 @@
    ("C-c C-n w" . 'tc/insert-when)
    ("C-c C-n n" . 'tc/insert-then)
    ("C-c C-n a" . 'tc/insert-and)
-   ("M-c" . 'tc/insert-spy))
-  )
+   ("M-c" . 'tc/insert-spy)))
 
 (use-package! cider
   :init

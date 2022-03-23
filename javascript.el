@@ -10,6 +10,4 @@
 
 (use-package! js2-mode
   :init
-  (add-hook! js2-mode 'tc/turn-on-prettier-on-save)
-  ;; it's a crime to indent 4 spaces
-  (setq js2-basic-offset 2))
+  (add-hook! js2-mode 'tc/turn-on-prettier-on-save))
