@@ -24,8 +24,12 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; doom-nord
-;; doom-palenight
+::
+;; dark:
+;; - doom-palenight *
+;; light:
+;; - doom-nord-light *
+;; - doom-opera-light (maybe)
 (setq doom-theme 'doom-palenight
       doom-font  (font-spec :family "Source Code Pro Medium" :size 13)
       doom-big-font (font-spec :family "Source Code Pro Medium" :size 18))
