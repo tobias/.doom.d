@@ -1,5 +1,8 @@
 (after! org (setq org-tags-column -78))
 
+;; We get ' Error: (void-function org-link-set-parameters)' without this
+(require 'ol)
+
 (require 'org-weekpage)
 
 (setq weekpage-path "~/Dropbox/journal/")
