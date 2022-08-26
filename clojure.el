@@ -58,6 +58,7 @@
    cider-prompt-for-symbol            nil
    cider-eval-spinner-type            'vertical-breathing
    cider-repl-print-length            100
+   cider-repl-use-pretty-printing     t
    cider-repl-wrap-history            t
    cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
    cider-repl-pop-to-buffer-on-connect 'display-only
