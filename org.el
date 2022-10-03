@@ -3,7 +3,7 @@
 ;; We get ' Error: (void-function org-link-set-parameters)' without this
 (require 'ol)
 
-(require 'org-weekpage)
+(load! "lib/org-weekpage")
 
 (setq weekpage-path "~/Dropbox/journal/")
 
