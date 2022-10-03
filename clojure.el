@@ -1,3 +1,7 @@
+;; I tried loading this in a lambda that runs post-clojure-mode-init, but it
+;; seems to be a no-op there. So we just pay the price of loading it at boot time.
+(load! "lib/cljstyle-mode")
+
 ;; use word wrapping instead of truncation in test report and doc
 ;; buffers. Must be set before loading cider.
 (setq cider-special-mode-truncate-lines nil)
@@ -24,7 +28,6 @@
   (add-hook! clojure-mode 'tc/rename-buffer-to-ns)
   (add-hook! clojure-mode 'subword-mode)
   (lambda ()
-    (load! "lib/cljstyle-mode")
     (when shortcut-elisp-loaded
       (add-hook! clojure-mode-hook 'shortcut-backend-font-lock)))
   (setq clojure-indent-style :always-align)
