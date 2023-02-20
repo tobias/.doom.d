@@ -70,3 +70,5 @@
 (package! idle-highlight-mode)
 
 (package! dockerfile-mode)
+
+(package! nvm)

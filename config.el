@@ -31,8 +31,8 @@
 ;; - doom-nord-light *
 ;; - doom-opera-light (maybe)
 (setq doom-theme 'doom-palenight
-      doom-font  (font-spec :family "Source Code Pro Medium" :size 13)
-      doom-big-font (font-spec :family "Source Code Pro Medium" :size 18))
+      doom-font  (font-spec :family "Jetbrains Mono" :size 14)
+      doom-big-font (font-spec :family "Jetbrains Mono" :size 18))
 
 ;; Doom increases/decreases the font size by 2 by default, which is too much.
 (setq doom-font-increment 1)

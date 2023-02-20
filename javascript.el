@@ -11,3 +11,7 @@
 (use-package! js2-mode
   :init
   (add-hook! js2-mode 'tc/turn-on-prettier-on-save))
+
+(use-package! nvm
+  :init
+  (add-hook! js2-mode 'nvm-use-for-buffer))
