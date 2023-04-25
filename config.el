@@ -123,7 +123,7 @@
 
 ;; highlight the symbol at point
 (use-package! idle-highlight-mode
-  :init (global-idle-highlight-mode 1))
+  :init (idle-highlight-global-mode 1))
 
 (use-package! doom-modeline
   :init
