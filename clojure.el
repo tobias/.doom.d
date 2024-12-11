@@ -22,10 +22,14 @@
                  (not (string= "" ns)))
         (rename-buffer ns)))))
 
+(defun tc/turn-on-cljr ()
+  (clj-refactor-mode 1))
+
 (use-package! clojure-mode
   :init
   (add-hook! clojure-mode 'tc/turn-on-paredit)
   (add-hook! clojure-mode 'tc/rename-buffer-to-ns)
+  (add-hook! clojure-mode 'tc/turn-on-cljr)
   (add-hook! clojure-mode 'subword-mode)
   (lambda ()
     (when shortcut-elisp-loaded
@@ -34,22 +38,22 @@
 
   :bind
   (:map clojure-mode-map
-   ;; unset toggling keyword to string and vice-versa since it conflicts with my
-   ;; ace-window binding
-   ("C-:" . nil)
-   ;; run cljstyle on file. I don't use cljstyle-mode to do this
-   ;; automatically on save since it causes the buffer to jump and breaks
-   ;; compilation buffer references in the file
-   ("C-c TAB" . 'cljstyle)
-   ("C-c d" . 'tc/insert-divider-comment)
-   ("C-c C-n f" . 'tc/insert-fixme)
-   ("C-c C-n t" . 'tc/insert-todo)
-   ("C-c C-n c" . 'tc/insert-nocommit)
-   ("C-c C-n g" . 'tc/insert-given)
-   ("C-c C-n w" . 'tc/insert-when)
-   ("C-c C-n n" . 'tc/insert-then)
-   ("C-c C-n a" . 'tc/insert-and)
-   ("M-c" . 'tc/insert-spy)))
+        ;; unset toggling keyword to string and vice-versa since it conflicts with my
+        ;; ace-window binding
+        ("C-:" . nil)
+        ;; run cljstyle on file. I don't use cljstyle-mode to do this
+        ;; automatically on save since it causes the buffer to jump and breaks
+        ;; compilation buffer references in the file
+        ("C-c TAB" . 'cljstyle)
+        ("C-c d" . 'tc/insert-divider-comment)
+        ("C-c C-n f" . 'tc/insert-fixme)
+        ("C-c C-n t" . 'tc/insert-todo)
+        ("C-c C-n c" . 'tc/insert-nocommit)
+        ("C-c C-n g" . 'tc/insert-given)
+        ("C-c C-n w" . 'tc/insert-when)
+        ("C-c C-n n" . 'tc/insert-then)
+        ("C-c C-n a" . 'tc/insert-and)
+        ("M-c" . 'tc/insert-spy)))
 
 (use-package! cider
   :init
@@ -60,7 +64,6 @@
    ;; try symbol at point before asking
    cider-prompt-for-symbol            nil
    cider-eval-spinner-type            'vertical-breathing
-   cider-repl-print-length            100
    cider-repl-use-pretty-printing     t
    cider-repl-wrap-history            t
    cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
@@ -68,19 +71,27 @@
    cider-repl-use-content-types       nil
    cider-repl-display-help-banner     nil
    cider-repl-prompt-function         (lambda (namespace)
-                                        (format "%s>\n" namespace)))
+                                        (format "%s>\n" namespace))
+   cider-test-fail-fast               nil)
+
 
   :bind
   (:map cider-repl-mode-map
-   ("RET" . 'indent-new-comment-line)
-   ("C-RET" . 'cider-repl-return)
-   ("C-c RET" . 'cider-repl-return)
-   ("M-c" . 'tc/insert-spy-letsc)))
+        ("RET" . 'indent-new-comment-line)
+        ("C-RET" . 'cider-repl-return)
+        ("C-c RET" . 'cider-repl-return)
+        ("M-c" . 'tc/insert-spy-letsc)))
+
+(use-package! flycheck-clj-kondo
+  :ensure t
+  :config (require 'flycheck-clj-kondo))
 
 (when shortcut-elisp-loaded
   ;; use my local cider alias and set up scope-capture
   (setq shortcut-backend-default-clojure-cli-options
-      "-J-server -J-Xmx6g -J-XX:+UseG1GC -J-Dapple.awt.UIElement=true -J-Dtika.config=tika-config.xml -A:backend-defaults:dev:test")
+         ;;"-J-javaagent:/home/toc/work/backend/tools/otel-tools/opentelemetry-javaagent.jar -J-server -J-Xmx6g -J-XX:+UseG1GC -J-Dtika.config=tika-config.xml -J-Dotel.javaagent.configuration-file=/home/toc/work/backend/tools/codedeploy-helper/resources/shared/otel-javaagent.properties -A:backend-defaults:dev:test"
+        "-J-server -J-Xmx6g -J-XX:+UseG1GC -J-Dtika.config=tika-config.xml -A:backend-defaults:dev:test"
+        )
   (add-to-list 'cider-jack-in-nrepl-middlewares "sc.nrepl.middleware/wrap-letsc")
   (add-to-list 'cider-jack-in-nrepl-middlewares "refactor-nrepl.middleware/wrap-refactor")
   (cider-add-to-alist 'cider-jack-in-dependencies "vvvvalvalval/scope-capture-nrepl" "0.3.1"))
